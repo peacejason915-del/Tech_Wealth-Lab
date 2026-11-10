@@ -151,7 +151,7 @@
         </div>
       </header>
 
-      <!-- Tool grid (4 Tools Responsive Grid) -->
+      <!-- Tool grid (4 tools) -->
       <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
 
         <!-- Card 1: 股票質押 (sky) -->
@@ -182,32 +182,31 @@
           </div>
         </a>
 
-        <!-- Card 2: 槓桿與現金流生存測試 (amber - 新增工具) -->
-        <a href="./leverage_cashflow_simulator.html"
-           class="tool-card glass-strong rounded-3xl p-6 lg:p-7 fade-up-delay-2 flex flex-col justify-between"
-           style="--accent: rgba(245,158,11,0.6); --accent-glow: rgba(245,158,11,0.18);">
+        <!-- 借款投資：信貸與質押模式 -->
+        <a href="./borrowing-investment-simulator.html"
+           class="tool-card glass-strong rounded-3xl p-6 lg:p-7 fade-up-delay-1 flex flex-col justify-between"
+           style="--accent: rgba(168,85,247,0.6); --accent-glow: rgba(168,85,247,0.18);">
           <div>
             <div class="flex items-start justify-between gap-3 mb-6">
               <div class="icon-box"
-                   style="--icon-bg-1: rgba(245,158,11,0.18); --icon-bg-2: rgba(245,158,11,0.04);
-                          --icon-border: rgba(245,158,11,0.35); --icon-shadow: rgba(245,158,11,0.5);">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fcd34d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  <path d="m9 12 2 2 4-4"/>
+                   style="--icon-bg-1: rgba(168,85,247,0.18); --icon-bg-2: rgba(168,85,247,0.04);
+                          --icon-border: rgba(168,85,247,0.35); --icon-shadow: rgba(168,85,247,0.5);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/>
                 </svg>
               </div>
               <span class="arrow text-slate-500 text-xl transition-transform">→</span>
             </div>
-            <div class="text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-300/80 mb-2">Survival Test</div>
-            <h2 class="display text-xl font-bold text-white mb-2 leading-tight">槓桿與生存測試模擬器</h2>
+            <div class="text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-300/80 mb-2">Borrow & Invest</div>
+            <h2 class="display text-xl font-bold text-white mb-2 leading-tight">借款投資試算器</h2>
             <p class="text-sm text-slate-400 leading-relaxed mb-5">
-              信貸去槓桿 vs 質押全額運轉。計算預留本息與第二池，測試熊市零收入極端生存跑道。
+              信貸／質押一鍵切換。試算每月還款、扣除成本後的損益，以及現金緩衝或追繳補足需求。
             </p>
           </div>
           <div class="flex flex-wrap gap-1.5 mt-auto">
-            <span class="text-[10px] px-2 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300">現金跑道</span>
-            <span class="text-[10px] px-2 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300">信貸 vs 質押</span>
-            <span class="text-[10px] px-2 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300">熊市存活率</span>
+            <span class="text-[10px] px-2 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300">信貸／質押</span>
+            <span class="text-[10px] px-2 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300">借款成本</span>
+            <span class="text-[10px] px-2 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300">還款與追繳</span>
           </div>
         </a>
 

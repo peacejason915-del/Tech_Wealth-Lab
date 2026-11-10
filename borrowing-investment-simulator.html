@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>借款投資試算器｜Tech-Wealth Lab</title>
+<style>
+:root{color-scheme:dark;--bg:#080d17;--panel:#111b2b;--line:#273449;--text:#edf3ff;--muted:#9daec5;--cyan:#70d9f6;--purple:#c4b5fd;--red:#fda4af;--green:#86efac}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 5% 0%,#10304488,transparent 50%),radial-gradient(ellipse at 95% 15%,#30205277,transparent 50%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}a{color:var(--cyan)}button,input{font:inherit}button,a,input,summary{touch-action:manipulation}button{cursor:pointer}a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}input:focus{outline:2px solid var(--cyan);outline-offset:2px}main{max-width:1240px;margin:auto;padding:24px}nav{margin-bottom:32px}.home{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:9px 16px;border:1px solid var(--line);border-radius:12px;color:var(--text);text-decoration:none;background:#111827}.home:hover{border-color:var(--cyan);background:#1e293b}.eyebrow{color:var(--cyan);font-size:11px;font-weight:700;letter-spacing:.18em}h1{font-size:clamp(28px,4vw,44px);line-height:1.2;letter-spacing:-.04em;margin:10px 0 14px}h2{font-size:19px;margin:0 0 8px}h3{font-size:14px;margin:0 0 12px}.intro{max-width:760px;color:var(--muted);margin:0}header{margin-bottom:28px}.flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:20px 0;color:var(--muted);font-size:13px}.flow span{background:#172238;border:1px solid var(--line);padding:7px 12px;border-radius:9px}.layout{display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;align-items:start}.panel{background:linear-gradient(130deg,#172236e8,#101725e8);border:1px solid var(--line);border-radius:20px;padding:22px}.panel+.panel{margin-top:20px}.hint{color:var(--muted);font-size:12px;margin:4px 0 16px}.fields{display:grid;gap:17px}.field label{display:block;color:#c7d4e5;font-size:13px;margin-bottom:7px}.input-wrap{position:relative}.input-wrap input{display:block;width:100%;min-height:46px;border-radius:10px;border:1px solid #33445f;background:#0b1220;color:var(--text);padding:9px 48px 9px 12px;font-variant-numeric:tabular-nums}.unit{position:absolute;right:12px;top:10px;color:var(--muted);font-size:13px;pointer-events:none}.field small{display:block;color:var(--muted);font-size:11px;margin-top:5px}details{border-top:1px solid var(--line);margin-top:22px;padding-top:15px}summary{cursor:pointer;color:#c7d4e5;font-size:13px;min-height:36px}details .fields{margin-top:12px}.reset{margin-top:20px;background:#1c2c41;color:var(--text);border:1px solid #3d526f;border-radius:10px;min-height:44px;width:100%}.reset:hover{border-color:var(--cyan)}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:20px}.metric{border:1px solid var(--line);border-radius:16px;padding:18px;background:#111b2b}.metric p{margin:0;color:var(--muted);font-size:12px}.metric strong{display:block;font-size:clamp(22px,2.6vw,30px);line-height:1.25;margin:9px 0;color:var(--cyan);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.metric small{color:var(--muted);font-size:11px}.metric .accent{color:var(--purple)}.profit-positive{color:var(--green)!important}.profit-negative{color:var(--red)!important}.tag{display:inline-block;padding:4px 10px;border-radius:7px;font-size:12px;background:#162c37;color:#b5e5f3;border:1px solid #31556a}.tag.warning{background:#381e2c;color:var(--red);border-color:#713749}.stress-head{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:18px}.stress-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}.stress-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}.stat{background:#0c1422;border:1px solid var(--line);padding:14px;border-radius:12px}.stat span{display:block;color:var(--muted);font-size:12px}.stat b{display:block;font-size:20px;margin-top:7px;font-variant-numeric:tabular-nums}.remedies{margin:18px 0 0;padding:16px;border-left:3px solid var(--purple);background:#211c3644;border-radius:0 10px 10px 0}.remedies p{margin:5px 0;font-size:13px}.remedies .hint{font-size:12px}.table-scroll{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}th,td{text-align:right;border-bottom:1px solid var(--line);padding:12px 10px}th{color:var(--muted);font-size:11px;font-weight:500}th:first-child,td:first-child{text-align:left}.chart{margin:12px 0}.chart svg{display:block;width:100%;height:auto}.chart-label{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:12px}.chart-label i{display:inline-block;width:16px;height:3px;background:var(--cyan);vertical-align:middle;margin-right:6px}.chart-label i.cost{background:var(--purple)}.error{padding:14px 18px;background:#411c2d;color:#fecdd3;border:1px solid #7f3349;border-radius:12px;margin-bottom:16px}.error[hidden]{display:none}.notes{margin-top:22px;color:var(--muted);font-size:12px}.notes ul{padding-left:20px}.notes li{margin:7px 0}footer{color:#8495b0;font-size:11px;margin:28px 0 8px}.results[aria-busy=true]{opacity:.45}.subtitle-row{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}.amount{font-variant-numeric:tabular-nums}@media(max-width:950px){.layout{grid-template-columns:1fr}.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.fields .field{min-width:0}.settings .hint{max-width:650px}}@media(max-width:520px){main{padding:16px}.panel{padding:18px}.metrics{gap:10px}.metric{padding:14px}.stress-values{grid-template-columns:1fr}.stress-values .stat{display:flex;align-items:center;justify-content:space-between;gap:10px}.stat b{margin:0}.fields,.stress-fields{grid-template-columns:1fr}.flow{gap:7px;font-size:11px}nav{margin-bottom:24px}.metric strong{font-size:23px}th,td{padding:10px 8px}}@media print{nav,.reset{display:none}body{background:#fff;color:#111}.layout{display:block}.panel,.metric,.stat{break-inside:avoid;background:#fff;color:#111}.settings{margin-bottom:20px}}
+[hidden]{display:none!important}.layout>*{min-width:0}.mode-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:650px;margin-top:24px}.mode-tabs button{min-height:76px;border:1px solid var(--line);border-radius:14px;background:#101a2b;color:var(--muted);text-align:left;padding:13px 18px;font-weight:700;font-size:16px}.mode-tabs button span{display:block;font-size:11px;font-weight:400;margin-top:3px}.mode-tabs button[aria-selected=true]{background:#173443;border-color:var(--cyan);color:var(--cyan)}.mode-description{font-size:13px;color:var(--muted);margin:14px 0 0}.check-label{display:flex!important;align-items:flex-start;gap:9px}.check-label input{width:18px;height:18px;flex-shrink:0;accent-color:var(--cyan)}@media(max-width:520px){.mode-tabs button{padding:12px;font-size:15px}}
+.preset-bar{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.preset-bar button,.view-button{min-height:42px;border:1px solid #3d526f;border-radius:9px;background:#17253a;color:var(--text);padding:8px 12px;font-size:12px}.preset-bar button:hover,.view-button:hover{border-color:var(--cyan)}.view-button[aria-pressed=true]{background:#173443;color:var(--cyan);border-color:var(--cyan)}.range-control{display:block;width:100%;margin:12px 0 4px;accent-color:var(--cyan);min-height:26px}.range-caption{display:flex;justify-content:space-between;color:var(--muted);font-size:10px}.field select,.chart-toolbar select{min-height:42px;max-width:100%;background:#0b1220;color:var(--text);border:1px solid #33445f;border-radius:9px;padding:7px 10px;font:inherit;font-size:12px}.field select{width:100%}.buffer-status{display:flex;flex-wrap:wrap;gap:12px;align-items:center;border:1px solid var(--line);border-left:4px solid var(--cyan);border-radius:12px;padding:12px 14px;margin:15px 0}.buffer-status.warning{border-left-color:#fbbf24}.buffer-status.danger{border-left-color:var(--red)}.buffer-status b{font-size:14px}.buffer-status small{display:block;color:var(--muted);font-size:11px}.status-dot{height:9px;width:9px;border-radius:50%;background:var(--green);flex-shrink:0}.warning .status-dot{background:#fbbf24}.danger .status-dot{background:var(--red)}.compare-settings{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}.chart-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:18px 0}.view-buttons{display:flex;gap:6px}.chart-hint{font-size:11px;color:var(--muted);margin:8px 0}.chart-readout{border:1px solid var(--line);border-radius:10px;padding:12px;background:#0b1422;font-size:12px}.chart-readout strong{color:var(--cyan)}.chart-readout ul{list-style:none;padding:0;margin:8px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:5px 16px}.chart-readout li{display:flex;justify-content:space-between;gap:8px}.chart-year{display:flex;align-items:center;gap:10px;margin-top:10px;color:var(--muted);font-size:11px}.chart-year input{flex:1;min-width:40px;accent-color:var(--cyan)}.metric-def{font-size:11px;color:var(--muted);margin:10px 0}.comparison-note{color:var(--muted);font-size:12px;line-height:1.7}@media(max-width:520px){.chart-readout ul{grid-template-columns:1fr}.chart-toolbar{align-items:stretch}.chart-toolbar select{width:100%}}
+</style>
+
+<style id="floating-home-style">
+  nav[aria-label="工具導覽"] {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    z-index: 40;
+    margin: 0;
+  }
+  @media (max-width: 1450px) {
+    header .eyebrow { padding-left: 112px; min-height: 32px; }
+  }
+  @media (max-width: 520px) {
+    nav[aria-label="工具導覽"] { top: max(8px, env(safe-area-inset-top)); left: max(8px, env(safe-area-inset-left)); }
+    nav[aria-label="工具導覽"] .home { padding: 9px 12px; font-size: 13px; }
+    header .eyebrow { padding-left: 104px; }
+  }
+  @media print { nav[aria-label="工具導覽"] { display: none; } }
+</style>
+</head>
+<body>
+<main>
+  <nav aria-label="工具導覽"><a class="home" href="./index.html"><span aria-hidden="true">←</span> 回首頁</a></nav>
+  <header>
+    <div class="eyebrow">TECH-WEALTH LAB · BORROW & INVEST</div>
+    <h1>借款投資試算器</h1>
+    <p class="intro">選擇信貸或股票質押，試算借款投資的成本與損益。信貸看本息還款與現金緩衝，質押看利息、維持率與補足需求。</p>
+    <div class="mode-tabs" role="tablist" aria-label="借款模式">
+      <button id="tab-credit" type="button" role="tab" aria-selected="true" aria-controls="modePanel" data-mode-button="credit">信貸模式<span>每月償還本金＋利息</span></button>
+      <button id="tab-pledge" type="button" role="tab" aria-selected="false" aria-controls="modePanel" tabindex="-1" data-mode-button="pledge">質押模式<span>原持股擔保，借款再投資</span></button>
+    </div>
+    <p id="modeDescription" class="mode-description" role="status"></p>
+  </header>
+  <div id="inputError" class="error" role="alert" hidden></div>
+  <div class="layout" id="modePanel" role="tabpanel" aria-labelledby="tab-credit">
+    <aside class="panel settings">
+      <h2>借款與投資設定</h2>
+      <p class="hint" id="settingsHint"></p>
+      <div class="preset-bar" data-mode-only="credit" aria-label="信貸快捷情境">
+        <button type="button" data-preset="conservative">保守防禦型</button><button type="button" data-preset="balanced">標準實戰型</button><button type="button" data-preset="aggressive">積極運轉型</button>
+      </div>
+      <form id="settings" novalidate>
+        <div class="fields">
+          <div class="field" data-mode-only="credit"><label for="principal">信貸借款金額</label><div class="input-wrap"><input id="principal" type="number" min="0" max="100000000" step="any" value="100" required><span class="unit">萬元</span></div></div>
+          <div class="field" data-mode-only="pledge"><label for="collateral">原持股擔保市值</label><div class="input-wrap"><input id="collateral" type="number" min="0" max="100000000" step="any" value="2500" required><span class="unit">萬元</span></div></div>
+          <div class="field" data-mode-only="pledge"><label for="ratio">質押借款比例</label><div class="input-wrap"><input id="ratio" type="number" min="0" max="100" step="any" value="20" required><span class="unit">%</span></div><small>借款金額＝擔保市值 × 借款比例；可借比例請依契約設定。</small></div>
+          <div class="field"><label for="rate" id="rateLabel">借款年利率</label><div class="input-wrap"><input id="rate" type="number" min="0" max="100" step="any" value="2.8" required><span class="unit">%</span></div></div>
+          <div class="field"><label for="returns">再投資預期年報酬率</label><div class="input-wrap"><input id="returns" type="number" min="-100" max="100" step="any" value="7" required><span class="unit">%</span></div><small id="returnAssumption">可輸入負報酬。複利方式可在下方設定。</small></div>
+          <div class="field"><label for="years">試算年數</label><div class="input-wrap"><input id="years" type="number" min="1" max="30" step="1" value="5" required><span class="unit">年</span></div></div>
+          <div class="field" data-mode-only="credit"><label for="reserveMonths">預留還款月數</label><div class="input-wrap"><input id="reserveMonths" type="number" min="0" max="360" step="1" value="12" required><span class="unit">個月</span></div><small>從信貸借款中留現金，其餘投入市場。</small></div>
+          <div class="field"><label for="reserve">額外備用現金</label><div class="input-wrap"><input id="reserve" type="number" min="0" max="100000000" step="any" value="50" required><span class="unit">萬元</span></div><small>額外準備的資金；信貸用於還款緩衝，質押用於比較還本補足需求。</small></div>
+        </div>
+        <details data-mode-only="pledge"><summary>追繳門檻與恢復目標</summary><div class="fields">
+          <div class="field"><label for="callRate">追繳維持率門檻</label><div class="input-wrap"><input id="callRate" type="number" min="1" max="1000" step="any" value="130" required><span class="unit">%</span></div></div>
+          <div class="field"><label for="targetRate">補足後維持率目標</label><div class="input-wrap"><input id="targetRate" type="number" min="1" max="1000" step="any" value="166" required><span class="unit">%</span></div></div>
+        </div><p class="hint">門檻為可調整的試算設定，實際追繳、補繳與到期展延依契約。</p></details>
+        <details><summary>報酬複利方式</summary><div class="field"><label for="compounding">投資報酬計算方式</label><select id="compounding"><option value="annual">年報酬率按年複利</option><option value="legacy">原版：月報酬率＝年報酬率 ÷ 12</option></select><small>年報酬 7% 在原版按月計算下，一年實際約為 7.23%；兩種定義會產生不同結果。</small></div></details>
+        <details data-mode-only="credit"><summary>手續費與轉貸設定</summary><div class="fields">
+          <div class="field"><label for="fee">每次開辦／轉貸手續費</label><div class="input-wrap"><input id="fee" type="number" min="0" max="10000000" step="any" value="3000" required><span class="unit">元</span></div><small>由外部現金支付，計入借款成本。</small></div>
+          <div class="field"><label class="check-label"><input id="rollover" type="checkbox"> 每 3 年將已還本金重新借出投資</label><small>依原始年期重新攤還；試算結束可能仍有未償本金。假設每次申請均可核准。</small></div>
+        </div></details>
+        <section class="compare-settings" data-mode-only="credit">
+          <div class="field"><label class="check-label"><input id="comparisonEnabled" type="checkbox" checked> 顯示質押對照（同圖比較）</label></div>
+          <p class="comparison-note">以信貸借款金額作為對照擔保市值，沿用原版比較基準。質押借出金額＝該市值 × 下列比例；兩種策略的借款金額可能不同。</p>
+          <div id="comparisonFields" class="fields">
+            <div class="field"><label for="comparisonRatio">對照質押借款比例</label><div class="input-wrap"><input id="comparisonRatio" type="number" min="0" max="100" step="any" value="20" required><span class="unit">%</span></div></div>
+            <div class="field"><label for="comparisonRate">對照質押年利率</label><div class="input-wrap"><input id="comparisonRate" type="number" min="0" max="100" step="any" value="2.8" required><span class="unit">%</span></div></div>
+          </div>
+          <p id="comparisonSummary" class="comparison-note"></p>
+        </section>
+        <button type="reset" class="reset">重設目前模式</button>
+      </form>
+    </aside>
+    <div class="results" id="results" aria-busy="false">
+      <section class="metrics" aria-label="借款與再投資摘要">
+        <div class="metric"><p id="loanLabel">借款金額</p><strong id="loanValue">—</strong><small id="investedNote"></small></div>
+        <div class="metric"><p id="monthlyLabel">每月支出</p><strong id="monthlyInterest">—</strong><small id="yearlyInterest">—</small></div>
+        <div class="metric"><p id="netLabel">期末扣息後投資損益</p><strong id="netProfit">—</strong><small id="profitNote"></small></div>
+        <div class="metric"><p id="fourthLabel">現金緩衝</p><strong id="triggerDrop" class="accent">—</strong><small id="initialMaintenance">—</small></div>
+      </section>
+      <section class="panel" data-mode-only="credit">
+        <div class="subtitle-row"><h2>信貸還款與投資配置</h2><span class="tag">本息平均攤還</span></div>
+        <p class="hint">借款先留還款現金，再投入市場；每月本金與利息由收入或預留金支付。</p>
+        <div id="bufferStatus" class="buffer-status" role="status"><span class="status-dot" aria-hidden="true"></span><div><b id="bufferTitle"></b><small>依本息還款支撐月數分級；未納入生活費、股災損失或其他支出。</small></div></div>
+        <div class="stress-values">
+          <div class="stat"><span>從借款預留的現金</span><b id="reservedCash">—</b></div>
+          <div class="stat"><span>實際投入市場</span><b id="actualInvestment">—</b></div>
+          <div class="stat"><span>期末尚欠本金</span><b id="finalDebt">—</b></div>
+        </div>
+        <div class="stat" style="margin-top:12px"><span>預留金＋第二備用資金池</span><b id="totalSafetyBuffer">—</b></div>
+        <div class="remedies"><h3>收入中斷時，還款現金可撐多久？</h3><p id="runwayExplanation"></p><p class="hint">支撐月數僅用「預留現金＋額外備用現金」除以初始每月本息；未扣生活費、手續費或其他支出，不代表完整生活存續時間。</p></div>
+      </section>
+      <section class="panel" data-mode-only="pledge">
+        <div class="stress-head"><div><h2>如果市場突然下跌</h2><p class="hint" style="margin-bottom:0">獨立的即時壓力情境，與下方多年投資試算分開。</p></div><span id="stressStatus" class="tag" role="status">—</span></div>
+        <div class="stress-fields">
+          <div class="field"><label for="collateralDrop">原擔保持股下跌</label><div class="input-wrap"><input id="collateralDrop" type="number" min="0" max="100" step="any" value="50" required><span class="unit">%</span></div></div>
+          <div class="field"><label for="investmentDrop">借款買入的資產下跌</label><div class="input-wrap"><input id="investmentDrop" type="number" min="0" max="100" step="any" value="40" required><span class="unit">%</span></div></div>
+        </div>
+        <div class="stress-values">
+          <div class="stat"><span>下跌後擔保市值</span><b id="stressedCollateral">—</b></div>
+          <div class="stat"><span>下跌後維持率</span><b id="stressedMaintenance">—</b></div>
+          <div class="stat"><span>再投資部位帳面損益</span><b id="stressedProfit">—</b></div>
+        </div>
+        <div class="remedies">
+          <h3 id="remedyTitle">若要恢復至設定目標，可擇一處理</h3>
+          <p>① 用額外現金償還本金：<b class="amount" id="repayNeeded">—</b></p>
+          <p>② 新增合格擔保品認列價值：<b class="amount" id="topupNeeded">—</b></p>
+          <p id="reserveNote" class="hint">—</p>
+          <p class="hint">兩種方式分開估算，不需相加。還本假設使用外部現金；新增擔保品以認列價值計算，若有折價須另換算市值。</p>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="subtitle-row"><h2>投資損益與借款成本</h2><span class="tag" id="repaymentTag"></span></div>
+        <p class="hint" id="projectionHint"></p>
+        <div class="chart-toolbar">
+          <label for="chartMetric">曲線內容 <select id="chartMetric"><option value="netAsset">投資淨資產</option><option value="profit">扣除成本後投資損益</option></select></label>
+          <div class="view-buttons" role="group" aria-label="圖表或明細表"><button type="button" class="view-button" id="viewChart" aria-pressed="true">走勢圖</button><button type="button" class="view-button" id="viewTable" aria-pressed="false">逐年明細表</button></div>
+        </div>
+        <p class="metric-def" id="metricDefinition"></p>
+        <div id="chartView">
+          <div class="chart-label" id="chartLegend"></div>
+          <div class="chart" id="projectionChart"></div>
+          <p class="chart-hint">實線看左軸，虛線看右軸；兩軸為獨立刻度，單位皆為萬元。滑鼠、觸控或年份滑桿可查看數值。</p>
+          <div class="chart-readout" id="chartReadout"></div>
+          <label class="chart-year" for="chartYear">選擇年份 <input id="chartYear" type="range" min="0" max="7" step="1" value="7"><output id="chartYearLabel">第 7 年</output></label>
+        </div>
+        <div id="tableView" hidden><div class="table-scroll"><table><caption style="text-align:left;color:var(--muted);font-size:12px;padding-bottom:6px">各年期末試算（金額：萬元）</caption><thead id="projectionHead"></thead><tbody id="projectionRows"></tbody></table></div></div>
+        <div id="comparisonFinal" class="comparison-note" style="margin-top:16px" hidden></div>
+      </section>
+    </div>
+  </div>
+  <section class="panel notes">
+    <h2>計算方式與假設</h2>
+    <ul>
+      <li>共通：依選擇的複利方式計算；信貸預設沿用原版「年報酬率 ÷ 12」按月複利，質押預設按年複利。借款利率固定。投資損益＝投資價值 − 累計投入本金 − 利息及手續費，不把償還本金或轉貸新增借款視為獲利。投資淨資產＝投資價值 − 尚欠本金；未包含預留現金，也不等於投資獲利。未計稅費、交易成本與原持股損益。</li>
+      <li data-mode-only="credit">信貸：每月本息平均攤還；預留金不產生報酬。逐年表列出尚欠本金；開啟轉貸時，於第 3、6…年末重新借滿，最後一年不再轉貸，並計入每次手續費。</li>
+      <li data-mode-only="pledge">質押：借款全額投資、只付利息，本金維持不變；新買入資產不納入擔保。維持率＝原擔保品認列價值 ÷ 尚欠本金 × 100%。</li>
+      <li data-mode-only="pledge">質押的市場下跌情境與多年報酬試算分開；備用現金比較未扣持有期間利息或生活費。試算年數不代表可借期限；到期仍須還本或申請續借。</li>
+    </ul>
+    <a data-mode-only="pledge" href="https://twse-regulation.twse.com.tw/TW/law/DOC01.aspx?FLCODE=fl080086&amp;FLNO=20" target="_blank" rel="noopener noreferrer">維持率公式參考：證交所操作辦法第 20 條</a>
+  </section>
+  <footer>TECH-WEALTH LAB · 所有輸入與計算均在本機完成，不儲存資料。頁面可離線使用。</footer>
+</main>
+<script id="borrowing-calculation">
+'use strict';
+function investmentValue(principal,rate,year,compounding) {
+  return principal*(compounding==='legacy'?Math.pow(1+rate/1200,year*12):Math.pow(1+rate/100,year));
+}
+function calculatePledge(p) {
+  const loan=p.collateral*p.ratio/100;
+  const annualInterest=loan*p.rate/100;
+  const initialMaintenance=loan>0?p.collateral/loan*100:null;
+  const triggerDrop=loan>0?Math.max(0,100-p.callRate*p.ratio/100):null;
+  const stressedCollateral=p.collateral*(1-p.collateralDrop/100);
+  const stressedInvestment=loan*(1-p.investmentDrop/100);
+  const stressedMaintenance=loan>0?stressedCollateral/loan*100:null;
+  const repayNeeded=loan>0?Math.max(0,loan-stressedCollateral/(p.targetRate/100)):0;
+  const topupNeeded=loan>0?Math.max(0,loan*p.targetRate/100-stressedCollateral):0;
+  const rows=Array.from({length:p.years},(_,i)=>{
+    const year=i+1,value=investmentValue(loan,p.returns,year,p.compounding),interest=annualInterest*year;
+    return {year,value,loan,interest,netAsset:value-loan,profit:value-loan-interest};
+  });
+  return {loan,annualInterest,monthlyInterest:annualInterest/12,initialMaintenance,triggerDrop,
+    stressedCollateral,stressedInvestment,stressedMaintenance,stressedProfit:stressedInvestment-loan,
+    repayNeeded,topupNeeded,reserveAfterRepay:p.reserve-repayNeeded,
+    breached:loan>0&&stressedMaintenance<p.callRate,rows};
+}
+
+function calculateCredit(p) {
+  const loan=p.principal,months=p.years*12,monthlyRate=p.rate/1200;
+  const monthlyPayment=loan===0?0:monthlyRate===0?loan/months:loan*monthlyRate/(-Math.expm1(-months*Math.log1p(monthlyRate)));
+  const reservedCash=Math.min(loan,monthlyPayment*p.reserveMonths);
+  const investedCash=Math.max(0,loan-reservedCash);
+  const runwayMonths=monthlyPayment>0?(reservedCash+p.reserve)/monthlyPayment:null;
+  const monthlyFactor=p.compounding==='legacy'?1+p.returns/1200:Math.pow(1+p.returns/100,1/12);
+  let balance=loan,value=investedCash,interestPaid=0,fees=loan>0?p.fee/10000:0,basis=investedCash;
+  const rows=[];
+  for(let year=1;year<=p.years;year++){
+    for(let m=0;m<12;m++){
+      const interest=balance*monthlyRate;
+      interestPaid+=interest;
+      balance=Math.max(0,balance-Math.min(balance,Math.max(0,monthlyPayment-interest)));
+      if(balance<loan*1e-10)balance=0;
+      value*=monthlyFactor;
+    }
+    if(p.rollover&&loan>0&&year%3===0&&year<p.years){
+      const newBorrowing=loan-balance;
+      value+=newBorrowing;basis+=newBorrowing;balance=loan;fees+=p.fee/10000;
+    }
+    const cost=interestPaid+fees;
+    rows.push({year,value,loan:balance,interest:cost,interestPaid,fees,basis,netAsset:value-balance,profit:value-basis-cost});
+  }
+  return {loan,monthlyPayment,reservedCash,investedCash,runwayMonths,rows};
+}
+
+</script>
+<script>
+'use strict';
+const allIds=['collateral','ratio','principal','rate','returns','years','reserve','reserveMonths','fee','callRate','targetRate','collateralDrop','investmentDrop','comparisonRatio','comparisonRate'];
+const commonIds=['rate','returns','years','reserve'];
+const modeIds={credit:['principal','reserveMonths','fee'],pledge:['collateral','ratio','callRate','targetRate','collateralDrop','investmentDrop']};
+const defaults={
+  credit:{principal:'100',rate:'2.3',returns:'7',years:'7',reserve:'30',reserveMonths:'12',fee:'3000',rollover:false,compounding:'legacy',comparisonEnabled:true,comparisonRatio:'20',comparisonRate:'2.8'},
+  pledge:{collateral:'2500',ratio:'20',rate:'2.8',returns:'7',years:'5',reserve:'50',callRate:'130',targetRate:'166',collateralDrop:'50',investmentDrop:'40',rollover:false,compounding:'annual'}
+};
+let mode=null;
+const state={credit:{...defaults.credit},pledge:{...defaults.pledge}};
+const el=id=>document.getElementById(id);
+const num=n=>new Intl.NumberFormat('zh-TW',{maximumFractionDigits:2}).format(Math.abs(n)<1e-9?0:n);
+const wan=n=>num(n)+' 萬';
+const pct=n=>num(n)+'%';
+function paintAmount(id,value){el(id).textContent=wan(value);el(id).classList.toggle('profit-negative',value<-1e-9);el(id).classList.toggle('profit-positive',value>1e-9);}
+function snapshot(){if(!mode)return;for(const id of [...commonIds,...modeIds[mode]])state[mode][id]=el(id).value;state[mode].rollover=el('rollover').checked;state[mode].compounding=el('compounding').value;if(mode==='credit'){state.credit.comparisonEnabled=el('comparisonEnabled').checked;state.credit.comparisonRatio=el('comparisonRatio').value;state.credit.comparisonRate=el('comparisonRate').value;}}
+function applyState(){for(const [id,value] of Object.entries(state[mode])){if(id==='rollover'||id==='comparisonEnabled')el(id).checked=value;else el(id).value=value;}}
+function switchMode(next,focus=false){
+  if(!['credit','pledge'].includes(next))next='credit';
+  snapshot();mode=next;applyState();
+  for(const node of document.querySelectorAll('[data-mode-only]')){
+    node.hidden=node.dataset.modeOnly!==mode;
+    for(const input of node.querySelectorAll('input'))input.disabled=node.hidden;
+  }
+  for(const button of document.querySelectorAll('[data-mode-button]')){
+    const active=button.dataset.modeButton===mode;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;
+    if(active&&focus)button.focus();
+  }
+  el('modePanel').setAttribute('aria-labelledby','tab-'+mode);
+  el('modeDescription').textContent=mode==='credit'?'信貸模式：借款先預留本息，其餘投資；每月還款後，負債逐步減少。':'質押模式：原持股作擔保，借款全額另外投資；只繳利息，另看維持率與補足需求。';
+  el('settingsHint').textContent=mode==='credit'?'金額以萬元輸入，手續費以元輸入。預留本息從借款中扣除。':'金額統一用萬元。新買入資產不加入擔保、不循環加借。';
+  el('rateLabel').textContent=mode==='credit'?'信貸年利率':'質押年利率';
+  const url=new URL(location.href);url.searchParams.set('mode',mode);history.replaceState(null,'',url);
+  update();
+}
+function update(){
+  const p={rollover:el('rollover').checked,compounding:el('compounding').value};let error='';
+  syncSliders();
+  const comparing=mode==='credit'&&el('comparisonEnabled').checked;
+  el('comparisonFields').hidden=!comparing;
+  for(const id of ['comparisonRatio','comparisonRate'])el(id).disabled=!comparing;
+  const activeIds=[...commonIds,...modeIds[mode],...(comparing?['comparisonRatio','comparisonRate']:[])];
+  for(const id of allIds)el(id).removeAttribute('aria-invalid');
+  for(const id of activeIds){
+    const input=el(id),n=input.valueAsNumber;
+    if(!Number.isFinite(n)||!input.validity.valid){input.setAttribute('aria-invalid','true');if(!error)error='請確認「'+document.querySelector('label[for="'+id+'"]').textContent+'」的數值與範圍。';}
+    p[id]=n;
+  }
+  if(!error&&mode==='pledge'&&p.targetRate<p.callRate){error='補足後維持率目標需大於或等於追繳門檻。';el('targetRate').setAttribute('aria-invalid','true');}
+  el('inputError').hidden=!error;el('inputError').textContent=error;el('results').hidden=!!error;
+  if(error)return;
+  const credit=mode==='credit',d=credit?calculateCredit(p):calculatePledge(p),last=d.rows[d.rows.length-1];
+  el('loanLabel').textContent=credit?'信貸借款金額':'質押借出／再投資金額';
+  el('loanValue').textContent=wan(d.loan);
+  el('investedNote').textContent=credit?'預留現金後，實際投資 '+wan(d.investedCash):'借款全額投入另一投資部位';
+  el('monthlyLabel').textContent=credit?'每月還款（本金＋利息）':'每月利息估算';
+  el('monthlyInterest').textContent=wan(credit?d.monthlyPayment:d.monthlyInterest);
+  el('yearlyInterest').textContent=credit?p.years+' 年累計利息 '+wan(last.interestPaid)+'；手續費 '+wan(last.fees):'每年 '+wan(d.annualInterest)+'；'+p.years+' 年累計 '+wan(last.interest);
+  el('netLabel').textContent=p.years+' 年後扣除借款成本的投資損益';paintAmount('netProfit',last.profit);
+  el('profitNote').textContent=credit?'投資價值 − 累計投入本金 − 利息及手續費':'再投資期末價值 − 借款本金 − 累計利息';
+  el('fourthLabel').textContent=credit?'還款現金支撐月數':'原持股觸及追繳門檻的跌幅';
+  if(credit){
+    el('triggerDrop').textContent=d.runwayMonths===null?'無借款':num(d.runwayMonths)+' 個月';
+    el('initialMaintenance').textContent='只估算本息還款，尚未扣生活費與手續費';
+    el('reservedCash').textContent=wan(d.reservedCash);el('actualInvestment').textContent=wan(d.investedCash);el('finalDebt').textContent=wan(last.loan);
+    el('runwayExplanation').textContent=d.runwayMonths===null?'目前沒有借款，不需支付信貸本息。':'（預留 '+wan(d.reservedCash)+' ＋ 備用 '+wan(p.reserve)+'）÷ 每月 '+wan(d.monthlyPayment)+' ≈ '+num(d.runwayMonths)+' 個月。';
+    el('repaymentTag').textContent=p.rollover?'每 3 年轉貸重新借滿':'本金逐月減少';
+    el('projectionHint').textContent=p.rollover?'每 3 年重新借滿並投入；轉貸後仍依原始年期攤還，最後一年不再轉貸。表內顯示期末尚欠本金。':'本金與利息由收入或預留金支付；投資部位不賣出還款。扣除成本後損益不包含外部還本所增加的資產淨值。';
+  }else{
+    el('triggerDrop').textContent=d.loan===0?'無借款':d.initialMaintenance<p.callRate?'已低於門檻':pct(d.triggerDrop);
+    el('initialMaintenance').textContent=d.loan===0?'未動用質押借款':'初始維持率 '+pct(d.initialMaintenance)+'；設定門檻 '+pct(p.callRate);
+    el('stressedCollateral').textContent=wan(d.stressedCollateral);el('stressedMaintenance').textContent=d.loan===0?'無借款':pct(d.stressedMaintenance);paintAmount('stressedProfit',d.stressedProfit);
+    el('stressStatus').textContent=d.loan===0?'無借款，無追繳試算':d.breached?'低於設定追繳門檻':d.stressedMaintenance<=p.callRate+1e-9?'觸及設定追繳門檻':'未達設定追繳門檻';
+    el('stressStatus').classList.toggle('warning',d.loan>0&&d.stressedMaintenance<=p.callRate+1e-9);
+    el('repayNeeded').textContent=wan(d.repayNeeded);el('topupNeeded').textContent=wan(d.topupNeeded);
+    el('remedyTitle').textContent=d.repayNeeded>0?'若要恢復至 '+pct(p.targetRate)+'，可擇一處理':'目前已達設定目標，無額外補足需求';
+    el('reserveNote').textContent=d.repayNeeded>0?(d.reserveAfterRepay>=0?'若用備用現金還本，剩餘 '+wan(d.reserveAfterRepay)+'。':'備用現金不足，還本仍缺 '+wan(-d.reserveAfterRepay)+'。'):'備用現金 '+wan(p.reserve)+'，本情境未使用。';
+    el('repaymentTag').textContent='本金維持不變 · 只付利息';
+    el('projectionHint').textContent='利息由外部現金支付；圖表不含原持股漲跌，不假設一定能續借。';
+  }
+  restoreFeatures(p,d,credit);
+
+}
+for(const id of allIds)el(id).addEventListener('input',update);
+el('compounding').addEventListener('change',update);
+el('comparisonEnabled').addEventListener('change',update);
+el('rollover').addEventListener('change',update);
+el('settings').addEventListener('submit',e=>e.preventDefault());
+el('settings').addEventListener('reset',e=>{e.preventDefault();state[mode]={...defaults[mode]};presentation[mode]={metric:mode==='credit'?'netAsset':'profit',view:'chart',year:null};applyState();update();});
+for(const button of document.querySelectorAll('[data-mode-button]')){
+  button.addEventListener('click',()=>switchMode(button.dataset.modeButton));
+  button.addEventListener('keydown',e=>{
+    if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){
+      e.preventDefault();switchMode(e.key==='Home'?'credit':e.key==='End'?'pledge':mode==='credit'?'pledge':'credit',true);
+    }
+  });
+}
+const presentation={credit:{metric:'netAsset',view:'chart',year:null},pledge:{metric:'profit',view:'chart',year:null}};
+const sliderSpecs={principal:[20,500,5],returns:[2,18,.5],reserveMonths:[0,24,1],reserve:[0,200,5],comparisonRatio:[0,60,5],ratio:[0,60,1]};
+function installSliders(){
+  for(const [id,[min,max,step]] of Object.entries(sliderSpecs)){
+    const input=el(id),slider=document.createElement('input');
+    slider.id=id+'Slider';slider.type='range';slider.min=min;slider.max=max;slider.step=step;slider.className='range-control';
+    slider.setAttribute('aria-label',document.querySelector('label[for="'+id+'"]').textContent+'滑桿');
+    input.closest('.field').appendChild(slider);
+    const caption=document.createElement('div');caption.className='range-caption';caption.innerHTML='<span></span><span></span>';slider.after(caption);
+    slider.addEventListener('input',()=>{input.value=slider.value;update();});
+  }
+}
+function syncSliders(){
+  for(const [id,[min,max]] of Object.entries(sliderSpecs)){
+    const input=el(id),slider=el(id+'Slider');if(!slider)continue;
+    const n=input.valueAsNumber;
+    slider.min=Number.isFinite(n)?Math.min(min,n):min;slider.max=Number.isFinite(n)?Math.max(max,n):max;
+    slider.value=Number.isFinite(n)?n:min;slider.disabled=input.disabled;
+    slider.nextElementSibling.firstElementChild.textContent=num(Number(slider.min));
+    slider.nextElementSibling.lastElementChild.textContent=num(Number(slider.max));
+  }
+}
+function readComparison(p){
+  if(mode!=='credit'||!el('comparisonEnabled').checked)return null;
+  return calculatePledge({collateral:p.principal,ratio:p.comparisonRatio,rate:p.comparisonRate,returns:p.returns,years:p.years,reserve:p.reserve,callRate:130,targetRate:166,collateralDrop:0,investmentDrop:0,compounding:p.compounding});
+}
+function restoreFeatures(p,d,credit){
+  syncSliders();
+  const ui=presentation[mode],comparison=readComparison(p),last=d.rows.at(-1);
+  if(credit){
+    const months=d.runwayMonths;
+    el('bufferStatus').className='buffer-status'+(months===null||months>=24?'':months>=12?' warning':' danger');
+    el('bufferTitle').textContent=months===null?'目前沒有信貸借款':months>=24?'還款緩衝：24 個月以上':months>=12?'還款緩衝：12 至未滿 24 個月':'還款緩衝：未滿 12 個月';
+    el('totalSafetyBuffer').textContent=wan(d.reservedCash+p.reserve);
+    el('comparisonSummary').textContent=comparison?(comparison.loan>0?'對照借款 '+wan(comparison.loan)+'；初始維持率 '+pct(comparison.initialMaintenance)+'；原擔保品下跌 '+pct(comparison.triggerDrop)+' 觸及 130% 試算門檻。':'對照質押未動用借款。'):'質押對照已關閉，圖表只顯示信貸。';
+  }
+  el('returnAssumption').textContent=p.compounding==='legacy'?'沿用原版：每月以年報酬率 ÷ 12 複利；可輸入負值。':'按有效年報酬率複利；可輸入負值。';
+  el('chartMetric').value=ui.metric;
+  const metricLabel=ui.metric==='netAsset'?'投資淨資產':'扣除成本後損益';
+  el('metricDefinition').textContent=ui.metric==='netAsset'?'投資淨資產＝投資市值 − 尚欠本金；未包含預留現金，會受外部還本影響，不等於淨賺。':'扣除成本後損益＝投資市值 − 累計投入本金 − 借款成本；轉貸重新借入的本金不算獲利。';
+  const ownName=credit?'信貸':'質押',series=[
+    {key:'own',label:ownName+metricLabel,color:'#70d9f6',axis:'left'},
+    {key:'cost',label:ownName+'累計借款成本',color:'#c4b5fd',dash:true,axis:'right'}
+  ];
+  if(comparison)series.push({key:'comparison',label:'對照質押'+metricLabel,color:'#86efac',axis:'left'},{key:'comparisonCost',label:'對照質押累計成本',color:'#fda4af',dash:true,axis:'right'});
+  const initialFee=credit&&d.loan>0?p.fee/10000:0;
+  const initial={year:0,own:ui.metric==='netAsset'?(credit?d.investedCash-d.loan:0):-initialFee,cost:initialFee,comparison:0,comparisonCost:0};
+  const points=[initial,...d.rows.map((r,i)=>({year:r.year,own:r[ui.metric],cost:r.interest,comparison:comparison?comparison.rows[i][ui.metric]:0,comparisonCost:comparison?comparison.rows[i].interest:0}))];
+  el('chartLegend').innerHTML=series.map(k=>`<span><i style="background:${k.color}"></i>${k.label}（${k.axis==='right'?'右軸':'左軸'}）</span>`).join('');
+  const W=680,H=280,L=72,R=72,T=38,B=40;
+  const leftValues=points.flatMap(point=>series.filter(k=>k.axis==='left').map(k=>point[k.key]));
+  const rightValues=points.flatMap(point=>series.filter(k=>k.axis==='right').map(k=>point[k.key]));
+  let leftMin=Math.min(0,...leftValues),leftMax=Math.max(0,...leftValues);
+  if(leftMin===leftMax)leftMax=leftMin+1;
+  const leftPadding=(leftMax-leftMin)*.12;
+  if(leftMin<0)leftMin-=leftPadding;
+  if(leftMax>0)leftMax+=leftPadding;
+  const rightMin=0,rightMax=Math.max(...rightValues)>0?Math.max(...rightValues)*1.12:1;
+  const x=year=>L+year/p.years*(W-L-R);
+  const y=(value,axis='left')=>{
+    const min=axis==='right'?rightMin:leftMin,max=axis==='right'?rightMax:leftMax;
+    return T+(max-value)/(max-min)*(H-T-B);
+  };
+  let grid='',leftLabels='',rightLabels='';
+  for(let i=0;i<=4;i++){
+    const left=leftMin+(leftMax-leftMin)*i/4,right=rightMin+(rightMax-rightMin)*i/4,row=T+(1-i/4)*(H-T-B);
+    grid+=`<line x1="${L}" x2="${W-R}" y1="${row}" y2="${row}" stroke="#273449"/>`;
+    leftLabels+=`<text x="${L-10}" y="${row+4}" fill="#70d9f6" font-size="11" text-anchor="end">${num(left)}</text>`;
+    rightLabels+=`<text x="${W-R+10}" y="${row+4}" fill="#c4b5fd" font-size="11" text-anchor="start">${num(right)}</text>`;
+  }
+  const axes=`<g id="investmentAxis"><text x="${L}" y="16" fill="#70d9f6" font-size="11">${ui.metric==='netAsset'?'投資淨資產':'投資損益'}（萬元）</text><line x1="${L}" x2="${L}" y1="${T}" y2="${H-B}" stroke="#456175"/>${leftLabels}</g><g id="costAxis"><text x="${W-R}" y="16" fill="#c4b5fd" font-size="11" text-anchor="end">借款成本（萬元）</text><line x1="${W-R}" x2="${W-R}" y1="${T}" y2="${H-B}" stroke="#65567d"/>${rightLabels}</g>`;
+  const lines=series.map(k=>`<polyline data-series="${k.key}" data-axis="${k.axis}" fill="none" stroke="${k.color}" stroke-width="2.5" ${k.dash?'stroke-dasharray="5 4"':''} points="${points.map(point=>x(point.year)+','+y(point[k.key],k.axis)).join(' ')}"/>`).join('');
+  const ticks=[0,Math.ceil(p.years/2),p.years].filter((v,i,a)=>a.indexOf(v)===i).map(v=>`<text x="${x(v)}" y="${H-8}" fill="#9daec5" font-size="11" text-anchor="middle">第 ${v} 年</text>`).join('');
+  el('projectionChart').innerHTML=`<svg id="interactiveProjection" viewBox="0 0 ${W} ${H}" role="img" tabindex="0" aria-labelledby="chartTitle" style="cursor:crosshair;touch-action:pan-y"><title id="chartTitle">${metricLabel}使用左軸，借款成本使用右軸，單位皆為萬元；滑鼠、觸控或下方滑桿可選年份，亦可切換逐年明細</title>${grid}${axes}<line x1="${L}" x2="${W-R}" y1="${y(0)}" y2="${y(0)}" stroke="#8193ad" stroke-dasharray="4 4"/>${lines}<g id="chartCursor" pointer-events="none"></g>${ticks}</svg>`;
+  const selectYear=year=>{
+    year=Math.max(0,Math.min(p.years,Math.round(year)));ui.year=year;const point=points[year];
+    el('chartCursor').innerHTML=`<line x1="${x(year)}" x2="${x(year)}" y1="${T}" y2="${H-B}" stroke="#91a4bc" stroke-dasharray="3 3"/>`+series.map(k=>`<circle cx="${x(year)}" data-axis="${k.axis}" cy="${y(point[k.key],k.axis)}" r="4" stroke="#0b1220" stroke-width="2" fill="${k.color}"/>`).join('');
+    el('chartReadout').innerHTML=`<strong>第 ${year} 年 · 金額：萬元</strong><ul>`+series.map(k=>`<li><span style="color:${k.color}">${k.label}</span><b>${num(point[k.key])}</b></li>`).join('')+'</ul>';
+    el('chartYear').value=year;el('chartYearLabel').textContent='第 '+year+' 年';
+  };
+  const svg=el('interactiveProjection');
+  const pointEvent=e=>{const point=svg.createSVGPoint();point.x=e.clientX;point.y=e.clientY;const local=point.matrixTransform(svg.getScreenCTM().inverse());selectYear((local.x-L)/(W-L-R)*p.years);};
+  svg.addEventListener('pointermove',pointEvent);svg.addEventListener('pointerdown',pointEvent);svg.addEventListener('pointerleave',()=>selectYear(p.years));
+  svg.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();selectYear(e.key==='Home'?0:e.key==='End'?p.years:(ui.year??p.years)+(e.key==='ArrowLeft'?-1:1));}});
+  el('chartYear').max=p.years;el('chartYear').oninput=()=>selectYear(Number(el('chartYear').value));selectYear(ui.year===null?p.years:ui.year);
+  const headers=['年度',ownName+'投資市值',ownName+'尚欠本金',ownName+'投資淨資產',ownName+'借款成本',ownName+'扣成本後損益'];
+  if(comparison)headers.push('對照質押市值','對照質押淨資產','對照質押成本','對照質押扣成本後損益');
+  el('projectionHead').innerHTML='<tr>'+headers.map(h=>'<th scope="col">'+h+'</th>').join('')+'</tr>';
+  el('projectionRows').innerHTML=d.rows.map((r,i)=>{
+    const cells=[r.value,r.loan,r.netAsset,r.interest,r.profit];if(comparison){const c=comparison.rows[i];cells.push(c.value,c.netAsset,c.interest,c.profit);}
+    return `<tr><th scope="row">第 ${r.year} 年</th>`+cells.map(n=>'<td>'+num(n)+'</td>').join('')+'</tr>';
+  }).join('');
+  el('comparisonFinal').hidden=!comparison;
+  if(comparison){const other=comparison.rows.at(-1);el('comparisonFinal').innerHTML=`第 ${p.years} 年期末：信貸投資淨資產 <b>${wan(last.netAsset)}</b>、扣成本後損益 <b>${wan(last.profit)}</b>；對照質押投資淨資產 <b>${wan(other.netAsset)}</b>、扣成本後損益 <b>${wan(other.profit)}</b>。兩邊投資規模與還款方式不同，請一併看尚欠本金與成本。`;}
+  el('chartView').hidden=ui.view!=='chart';el('tableView').hidden=ui.view!=='table';el('viewChart').setAttribute('aria-pressed',String(ui.view==='chart'));el('viewTable').setAttribute('aria-pressed',String(ui.view==='table'));
+}
+installSliders();
+el('chartMetric').addEventListener('change',()=>{presentation[mode].metric=el('chartMetric').value;update();});
+for(const [id,view] of [['viewChart','chart'],['viewTable','table']])el(id).addEventListener('click',()=>{presentation[mode].view=view;update();});
+const presets={
+  conservative:{principal:'100',returns:'6',rate:'2.2',reserveMonths:'18',reserve:'50',comparisonEnabled:false,comparisonRatio:'0',comparisonRate:'2.6'},
+  balanced:{principal:'150',returns:'7.5',rate:'2.3',reserveMonths:'12',reserve:'30',comparisonEnabled:true,comparisonRatio:'20',comparisonRate:'2.8'},
+  aggressive:{principal:'250',returns:'9.5',rate:'2.5',reserveMonths:'3',reserve:'10',comparisonEnabled:true,comparisonRatio:'60',comparisonRate:'3.1'}
+};
+for(const button of document.querySelectorAll('[data-preset]'))button.addEventListener('click',()=>{
+  snapshot();Object.assign(state.credit,presets[button.dataset.preset]);applyState();update();
+});
+
+switchMode(new URLSearchParams(location.search).get('mode'));
+</script>
+</body>
+</html>
