@@ -407,13 +407,15 @@ th { background: var(--surface); color: var(--text2); position: sticky; top: 0; 
 
   <style id="tool-home-navigation-style">
     .tool-home-nav {
-      position: relative;
-      z-index: 1;
+      position: fixed;
+      top: max(12px, env(safe-area-inset-top));
+      left: max(12px, env(safe-area-inset-left));
+      z-index: 40;
       box-sizing: border-box;
-      width: 100%;
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 16px 20px 0;
+      width: auto;
+      max-width: none;
+      margin: 0;
+      padding: 0;
     }
     .tool-home-nav .tool-home-link {
       display: inline-flex;
@@ -442,6 +444,13 @@ th { background: var(--surface); color: var(--text2); position: sticky; top: 0; 
     }
     .tool-home-nav .tool-home-link svg { flex-shrink: 0; }
     @media print { .tool-home-nav { display: none; } }
+  </style>
+
+  <style id="floating-home-responsive-style">
+    @media (max-width: 520px) {
+      .tool-home-nav { top: max(8px, env(safe-area-inset-top)); left: max(8px, env(safe-area-inset-left)); }
+      .tool-home-nav .tool-home-link { padding: 9px 12px; font-size: 13px; }
+    }
   </style>
 </head>
 <body>

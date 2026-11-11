@@ -21,13 +21,15 @@
 
   <style id="tool-home-navigation-style">
     .tool-home-nav {
-      position: relative;
-      z-index: 1;
+      position: fixed;
+      top: max(12px, env(safe-area-inset-top));
+      left: max(12px, env(safe-area-inset-left));
+      z-index: 40;
       box-sizing: border-box;
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 0 16px;
+      width: auto;
+      max-width: none;
+      margin: 0;
+      padding: 0;
     }
     .tool-home-nav .tool-home-link {
       display: inline-flex;
@@ -56,6 +58,16 @@
     }
     .tool-home-nav .tool-home-link svg { flex-shrink: 0; }
     @media print { .tool-home-nav { display: none; } }
+  </style>
+
+  <style id="floating-home-responsive-style">
+    @media (max-width: 520px) {
+      .tool-home-nav { top: max(8px, env(safe-area-inset-top)); left: max(8px, env(safe-area-inset-left)); }
+      .tool-home-nav .tool-home-link { padding: 9px 12px; font-size: 13px; }
+    }
+    @media (max-width: 1500px) {
+      body > div > header > div:first-child > div:first-child { margin-left: 104px; max-width: calc(100% - 104px); }
+    }
   </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen antialiased p-3 sm:p-6 md:p-8">
